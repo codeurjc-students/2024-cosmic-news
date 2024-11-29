@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +31,8 @@ public class CosmicNewsTests {
 	public void setup() {
 		ChromeOptions options = new ChromeOptions();
         options.setAcceptInsecureCerts(true);
+		options.addArguments("--headless");
+		options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
 	}
 	
@@ -44,7 +47,7 @@ public class CosmicNewsTests {
 	
 	@Test
 	public void loginAndEdit() throws InterruptedException {
-		driver.get("https://localhost:8443/");
+		driver.get("https://localhost:"+ port +"/");
         
         Thread.sleep(1000);	
 
@@ -79,7 +82,7 @@ public class CosmicNewsTests {
 
     @Test
 	public void register() throws InterruptedException {
-		driver.get("https://localhost:8443/");
+		driver.get("https://localhost:"+ port +"/");
         
         Thread.sleep(1000);	
 
@@ -250,7 +253,13 @@ public class CosmicNewsTests {
 
 		Thread.sleep(1000);
 
-		driver.findElement(By.cssSelector(".day[data-day='" + String.valueOf(today.getDayOfMonth()) + "']")).click();
+		WebElement dayElement = driver.findElement(By.cssSelector(".day[data-day='" + String.valueOf(today.getDayOfMonth()) + "']"));
+
+		js.executeScript("arguments[0].scrollIntoView(true);", dayElement);
+
+		Thread.sleep(1000);
+
+		dayElement.click();
 
 		Thread.sleep(1000);
 
@@ -267,7 +276,7 @@ public class CosmicNewsTests {
 	}
 
 	private void loginAdmin(){
-		driver.get("https://localhost:8443/");
+		driver.get("https://localhost:"+ port +"/");
 
         driver.findElement(By.id("profile")).click();
 		
