@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'cosmic-news';
+  constructor(private router: Router) {
+    const isFront = window.location.pathname.includes('front');
+    const backgroundUrl = isFront ? '/images/background.jpg' : '/api/images/background';
+    document.documentElement.style.setProperty('--background-url', `url(${backgroundUrl})`);
+  }
 }

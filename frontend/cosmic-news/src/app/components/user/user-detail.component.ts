@@ -36,6 +36,7 @@ export class UserDetailComponent {
     rowElements: number;
     canAdd: boolean = false;
     idUser:number;
+    profileUrl:string;
 
     constructor(activatedRoute: ActivatedRoute,
         private router:Router,
@@ -43,6 +44,9 @@ export class UserDetailComponent {
         private pagService: PaginationService,
         private messageService: MessageService,
         private elementRef: ElementRef) {
+
+        const isFront = window.location.pathname.includes('front');
+        this.profileUrl = isFront ? '/images/noPhotoUser.jpg' : '/api/images/users';
 
         let id = activatedRoute.snapshot.params['id'];
         const routeSegments = activatedRoute.snapshot.url;

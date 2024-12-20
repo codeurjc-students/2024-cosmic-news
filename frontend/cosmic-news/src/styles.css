@@ -114,7 +114,7 @@ html,body{
     flex-direction: column;
     justify-content: flex-start;
     align-items: center; 
-    background-image: url('/api/images/background'); 
+    background-image: var(--background-url); 
     background-size: cover; 
     background-position: center; 
     background-attachment: fixed;

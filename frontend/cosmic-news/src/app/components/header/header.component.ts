@@ -7,6 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private router: Router) { }
 
-}
+  logoUrl: string;
+
+  constructor(private router: Router) {
+      const isFront = window.location.pathname.includes('front');
+      this.logoUrl = isFront ? '/images/logo.png' :'/api/images/logo';
+    }
+
+  }

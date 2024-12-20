@@ -222,12 +222,7 @@ public class UserRestController {
 		if(principal !=null){
             User user = userService.findUserById(id);
 			if (user != null) {
-				System.out.println("MAIL"+userDTO.getMail());
-				System.out.println("NAME"+userDTO.getName());
-				System.out.println("NICK"+userDTO.getNick());
-				System.out.println("DESC"+userDTO.getDescription());
 				String messageForm = userService.checkForm(userDTO.getMail(), userDTO.getNick());
-				System.out.println("messgae"+messageForm);
 				if (messageForm.equals("") || (userDTO.getMail().equals(user.getMail()) && userDTO.getNick().equals(user.getNick()))) {
 					updateUser(user, userDTO);
 					return new ResponseEntity<>(user, HttpStatus.OK);

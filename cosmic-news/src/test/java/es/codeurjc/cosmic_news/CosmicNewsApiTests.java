@@ -23,7 +23,7 @@ public class CosmicNewsApiTests {
     @BeforeEach
     public void setUp() {
         RestAssured.baseURI = "https://localhost"; 
-        RestAssured.port = 8443; 
+        RestAssured.port = port; 
         RestAssured.useRelaxedHTTPSValidation(); 
 
         io.restassured.response.Response response = given()
@@ -137,7 +137,7 @@ public class CosmicNewsApiTests {
     given()
         .cookie("AuthToken", accessToken)
     .when()
-        .delete("/api/news/1")
+        .delete("/api/news/2")
     .then()
         .statusCode(200);
     }
@@ -151,7 +151,7 @@ public class CosmicNewsApiTests {
                 .body("{ \"title\" : \"TestEdit\", \"author\": \"TESTEDIT\"}")
                 .contentType(ContentType.JSON).
         when().
-            put("/api/news/1").
+            put("/api/news/3").
         then().
             statusCode(200).
             body("title", equalTo("TestEdit"));
@@ -189,7 +189,7 @@ public class CosmicNewsApiTests {
     given()
         .cookie("AuthToken", accessToken)
     .when()
-        .delete("/api/pictures/1")
+        .delete("/api/pictures/3")
     .then()
         .statusCode(200);
     }
@@ -203,7 +203,7 @@ public class CosmicNewsApiTests {
                 .body("{ \"title\" : \"TestEdit\", \"author\": \"TESTEDIT\"}")
                 .contentType(ContentType.JSON).
         when().
-            put("/api/pictures/1").
+            put("/api/pictures/4").
         then().
             statusCode(200).
             body("title", equalTo("TestEdit"));
@@ -255,7 +255,7 @@ public class CosmicNewsApiTests {
                 .body("{ \"title\" : \"TestEdit\", \"description\" : \"api test edit description\"}")
                 .contentType(ContentType.JSON).
         when().
-            put("/api/videos/1").
+            put("/api/videos/2").
         then().
             statusCode(200).
             body("description", equalTo("api test edit description"));
@@ -307,7 +307,7 @@ public class CosmicNewsApiTests {
                 .body("{ \"date\" : \"2024-12-12\", \"description\" : \"api test edit description\"}")
                 .contentType(ContentType.JSON).
         when().
-            put("/api/events/1").
+            put("/api/events/2").
         then().
             statusCode(200).
             body("description", equalTo("api test edit description"));
@@ -364,10 +364,10 @@ public class CosmicNewsApiTests {
         given().
             contentType(ContentType.JSON).
         when().
-            get("/api/quizzes/1").
+            get("/api/quizzes/2").
         then().
             statusCode(200).
-            body("id", equalTo(1));
+            body("id", equalTo(2));
     }
 
     @Test
@@ -417,7 +417,7 @@ public class CosmicNewsApiTests {
             "}")
             .contentType(ContentType.JSON)
         .when()
-            .put("/api/quizzes/1")
+            .put("/api/quizzes/2")
         .then()
             .statusCode(200)
             .body("name", equalTo("API TEST EDIT Quizz"))
