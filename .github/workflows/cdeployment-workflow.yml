@@ -2,6 +2,9 @@ name: Continuous Deployment - Run Azure Login with OIDC
 
 on:
   push:
+    branches:
+      - main
+      - fase3
 
 permissions:
   id-token: write
