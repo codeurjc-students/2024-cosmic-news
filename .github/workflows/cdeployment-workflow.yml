@@ -1,0 +1,32 @@
+name: Continuous Deployment - Run Azure Login with OIDC
+
+on:
+  push:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+  runs-on: ubuntu-latest
+  needs: test
+  steps:
+    - name: 'Az CLI login'
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    
+    - name: 'Run az commands to deploy container'
+      run: |
+        az container create \
+        --resource-group ${{ secrets.AZURE_GROUP }} \
+        --name cosmic-news \
+        --image ${{ secrets.DOCKERHUB_USERNAME }}/cosmic-news:v1 \
+        --dns-name-label pedrocristino2020-cosmic-news \
+        --registry-login-server index.docker.io \
+        --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
+        --registry-password ${{ secrets.DOCKERHUB_READ_TOKEN }} \
+        --ports 8443
