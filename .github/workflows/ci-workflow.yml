@@ -1,7 +1,10 @@
 name: CI - Tests (Integración Continua)
 
-on: 
-  pull_request:
+on:
+  push:
+    branches:
+      - main
+      - fase3
     paths-ignore:
       - README.md
 

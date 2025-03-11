@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - fase3
+    paths-ignore:
+      - README.md
 
 permissions:
   id-token: write
