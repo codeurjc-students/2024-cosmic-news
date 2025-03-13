@@ -87,7 +87,8 @@ jobs:
           --registry-login-server index.docker.io \
           --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
           --registry-password ${{ secrets.DOCKERHUB_TOKEN }} \
-          --ports 8443
+          --ports 8443 \
+          --os-type Linux
 
 #Cambio en azure para arreglar el error, quitando main y poniendo "fase3" al final en el repositorio para que sirva para todas las ramas y no solo main
 #Vuelta a actualizar quitando PedroCristino2020 del "repo"
