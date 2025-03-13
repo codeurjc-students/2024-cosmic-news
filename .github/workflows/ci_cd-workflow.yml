@@ -88,7 +88,9 @@ jobs:
           --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
           --registry-password ${{ secrets.DOCKERHUB_TOKEN }} \
           --ports 8443 \
-          --os-type Linux
+          --os-type Linux \
+          --cpu 1 \
+          --memory 1.5
 
 #Cambio en azure para arreglar el error, quitando main y poniendo "fase3" al final en el repositorio para que sirva para todas las ramas y no solo main
 #Vuelta a actualizar quitando PedroCristino2020 del "repo"
