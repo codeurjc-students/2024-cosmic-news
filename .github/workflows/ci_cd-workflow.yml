@@ -88,3 +88,5 @@ jobs:
           --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
           --registry-password ${{ secrets.DOCKERHUB_TOKEN }} \
           --ports 8443
+
+#Cambio en azure para arreglar el error, quitando main y poniend * al final en el repositorio para que sirva para todas las ramas y no solo main
