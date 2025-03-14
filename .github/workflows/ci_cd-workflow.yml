@@ -83,16 +83,17 @@ jobs:
           --resource-group ${{ secrets.AZURE_GROUP }} \
           --name cosmic-news \
           --image ${{ secrets.DOCKERHUB_USERNAME }}/cosmic-news:v1 \
-          --dns-name-label pedrocristino2020-cosmic-news \
+          --dns-name-label cosmic-news \
           --registry-login-server index.docker.io \
           --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
           --registry-password ${{ secrets.DOCKERHUB_TOKEN }} \
           --ports 8443 \
           --os-type Linux \
           --cpu 2 \
-          --memory 2
-
-#Cambio en azure para arreglar el error, quitando main y poniendo "fase3" al final en el repositorio para que sirva para todas las ramas y no solo main
-#Vuelta a actualizar quitando PedroCristino2020 del "repo"
-#Habilitamos desde la powershell de azure el servicio
-#Borramos el container anterior
+          --memory 2 \
+          --environment-variables \
+            SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cosmic_news_bd \
+            SPRING_DATASOURCE_USERNAME=root \
+            SPRING_DATASOURCE_PASSWORD=rootpass \
+            SPRING_PROFILES_ACTIVE=prod \
+          --restart-policy OnFailure
