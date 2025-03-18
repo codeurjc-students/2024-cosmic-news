@@ -94,3 +94,5 @@ jobs:
             DB_USERNAME="adminuser@cosmic-news-db" \
             DB_PASSWORD="${{ secrets.DB_PRO_PASSWORD }}" \
           --restart-policy Always
+
+#Eliminamos el contenedor anterior
