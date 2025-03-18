@@ -41,7 +41,6 @@ jobs:
   build-and-push-docker:
     runs-on: ubuntu-latest
     needs: test
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -54,8 +53,8 @@ jobs:
 
       - name: Generate Docker image
         run: |
-          mvn -f cosmic-news/pom.xml spring-boot:build-image -DskipTests \
-            -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/cosmic-news:v1
+          mvn -f cosmic-news/pom.xml spring-boot:build-image -DskipTests
+          docker tag cosmic-news:latest ${{ secrets.DOCKERHUB_USERNAME }}/cosmic-news:v1
 
       - name: Login to DockerHub
         run: |
@@ -75,8 +74,7 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          allow-no-subscriptions: ${{ env.AZURE_SUBSCRIPTION_ID == '' }}
-      
+
       - name: 'Run az commands to deploy container'
         run: |
           az container create \
@@ -92,8 +90,7 @@ jobs:
           --cpu 2 \
           --memory 2 \
           --environment-variables \
-            SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cosmic_news_bd \
-            SPRING_DATASOURCE_USERNAME=root \
-            SPRING_DATASOURCE_PASSWORD=rootpass \
-            SPRING_PROFILES_ACTIVE=prod \
-          --restart-policy OnFailure
+            DB_URL="jdbc:mysql://cosmic-news-db.mysql.database.azure.com:3306/cosmic_news_bd?serverTimezone=UTC&useSSL=true&requireSSL=true" \
+            DB_USERNAME="adminuser@cosmic-news-db" \
+            DB_PASSWORD="${{ secrets.DB_PRO_PASSWORD }}" \
+          --restart-policy Always
