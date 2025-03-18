@@ -54,7 +54,7 @@ jobs:
       - name: Generate Docker image
         run: |
           mvn -f cosmic-news/pom.xml spring-boot:build-image -DskipTests \
-            -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/cosmic-news:v1
+            -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
 
       - name: Login to DockerHub
         run: |
@@ -62,7 +62,7 @@ jobs:
           -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Push image to DockerHub
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/cosmic-news:v1
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
 
   deploy:
     runs-on: ubuntu-latest
@@ -80,8 +80,8 @@ jobs:
           az container create \
           --resource-group ${{ secrets.AZURE_GROUP }} \
           --name cosmic-news \
-          --image ${{ secrets.DOCKERHUB_USERNAME }}/cosmic-news:v1 \
-          --dns-name-label cosmic-news \
+          --image ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1 \
+          --dns-name-label pedrocristino2020/cosmic-news \
           --registry-login-server index.docker.io \
           --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
           --registry-password ${{ secrets.DOCKERHUB_TOKEN }} \
@@ -89,10 +89,6 @@ jobs:
           --os-type Linux \
           --cpu 2 \
           --memory 2 \
-          --environment-variables \
-            DB_URL="jdbc:mysql://cosmic-news-db.mysql.database.azure.com:3306/cosmic_news_bd?serverTimezone=UTC&useSSL=true&requireSSL=true" \
-            DB_USERNAME="adminuser@cosmic-news-db" \
-            DB_PASSWORD="${{ secrets.DB_PRO_PASSWORD }}" \
           --restart-policy Always
 
 #Eliminamos el contenedor anterior
