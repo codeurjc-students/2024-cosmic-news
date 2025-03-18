@@ -81,7 +81,7 @@ jobs:
           --resource-group ${{ secrets.AZURE_GROUP }} \
           --name cosmic-news \
           --image ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1 \
-          --dns-name-label pedrocristino2020/cosmic-news \
+          --dns-name-label pedrocristino2020-cosmic-news \
           --registry-login-server index.docker.io \
           --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
           --registry-password ${{ secrets.DOCKERHUB_TOKEN }} \
