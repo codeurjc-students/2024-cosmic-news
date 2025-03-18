@@ -90,5 +90,9 @@ jobs:
           --cpu 2 \
           --memory 2 \
           --restart-policy Always
+          --environment-variables \
+            DB_URL="jdbc:mysql://bd-cosmic-news.mysql.database.azure.com:3306/cosmic_news_bd?serverTimezone=UTC&useSSL=true" \
+            DB_USERNAME="adminuser" \
+            DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
 
 #Eliminamos el contenedor anterior
