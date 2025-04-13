@@ -94,6 +94,6 @@ jobs:
                   --memory 3.5 \
                   --restart-policy Always \
                   --environment-variables DB_URL="jdbc:mysql://cosmic-news-bd.mysql.database.azure.com:3306/cosmic_news_bd?useSSL=true&requireSSL=false&serverTimezone=UTC" \
-                                          DB_USER="adminuser@cosmic-news-bd" \
+                                          DB_USER="adminuser" \
                                           DB_PASSWORD="${{ secrets.DB_PASSWORD  }}" \
                                           DDL_AUTO="update"
