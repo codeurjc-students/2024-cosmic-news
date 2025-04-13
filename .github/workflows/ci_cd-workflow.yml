@@ -89,10 +89,11 @@ jobs:
               --os-type Linux \
               --cpu 2 \
               --ports 8443 \
-                    --os-type Linux \
-                    --cpu 2 \
-                    --memory 3.5 \
-                    --restart-policy Always \
-                    --environment-variables SPRING_DATASOURCE_URL="jdbc:mysql://db:3306/cosmic_news_bd" \
-                                          SPRING_DATASOURCE_USERNAME="root" \
-                                          SPRING_DATASOURCE_PASSWORD="rootpass"
+              --os-type Linux \
+              --cpu 2 \
+              --memory 3.5 \
+              --restart-policy Always \
+              --environment-variables DB_URL="jdbc:mysql://cosmic-news-bd.mysql.database.azure.com:3306/cosmic_news_bd?useSSL=true&requireSSL=false&serverTimezone=UTC" \
+                                      DB_USER="adminuser@cosmic-news-bd" \
+                                      DB_PASSWORD="${{ secrets.DB_PASSWORD  }}" \
+                                      DDL_AUTO="update"
