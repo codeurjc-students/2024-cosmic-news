@@ -124,6 +124,15 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<configuration>
+					<image>
+					<name>PedroCristino2020/cosmic-news-native:${project.version}</name>
+					</image>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
