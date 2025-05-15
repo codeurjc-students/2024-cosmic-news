@@ -139,4 +139,13 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>native</id>
+			<properties>
+				<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>
