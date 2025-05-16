@@ -89,3 +89,4 @@ jobs:
               -p 8080:8080 \
               ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
           EOF
+          
