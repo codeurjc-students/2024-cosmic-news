@@ -70,8 +70,8 @@ jobs:
     steps:
       - name: Configure SSH
         run: |
-          mkdir -p $HOME/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 400 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.AWS_IP }} >> ~/.ssh/known_hosts
 
