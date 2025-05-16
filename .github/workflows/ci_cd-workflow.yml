@@ -82,3 +82,4 @@ jobs:
           -e SPRING_DATASOURCE_USERNAME='adminuser' \
           -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}'"
           
+          
