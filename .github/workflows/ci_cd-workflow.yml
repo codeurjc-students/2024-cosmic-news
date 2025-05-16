@@ -51,10 +51,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Generate Docker image
+      - name: Generate Docker image with memory fix
         run: |
           mvn -f cosmic-news/pom.xml spring-boot:build-image -DskipTests \
-            -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
+            -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1 \
+            -Dspring-boot.build-image.environment.BPL_JVM_CALCULATE_MEMORY=false
 
       - name: Login to DockerHub
         run: |
@@ -74,16 +75,12 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" >~/.ssh/id_rsa
           chmod 400 ~/.ssh/id_rsa
 
-      - name: Deploy Docker container on EC2
+      - name: Deploy docker image to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_IP }} << 'EOF'
-            docker rm -f cosmic_news || true
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_IP }} "
+            docker rm -f cosmic_news || true && \
             docker run -d --name cosmic_news \
-              --env BPL_JVM_CALCULATE_MEMORY=false \
-              --env JAVA_TOOL_OPTIONS='-Xmx512m -XX:MaxMetaspaceSize=128m' \
-              --env SPRING_DATASOURCE_URL='jdbc:mysql://${{ secrets.URL_DATABASE }}/cosmic_news_bd?useSSL=true' \
-              --env SPRING_DATASOURCE_USERNAME='adminuser' \
-              --env SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}' \
-              ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
-          EOF
-          
+              -e SPRING_DATASOURCE_URL='jdbc:mysql://${{ secrets.URL_DATABASE }}/cosmic_news_bd?useSSL=true' \
+              -e SPRING_DATASOURCE_USERNAME='adminuser' \
+              -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}' \
+              ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1"
