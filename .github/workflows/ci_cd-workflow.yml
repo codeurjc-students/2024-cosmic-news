@@ -74,18 +74,11 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" >~/.ssh/id_rsa
           chmod 400 ~/.ssh/id_rsa
 
-      - name: Deploy Docker Container to EC2
+      - name: Upload docker image
         run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_IP }} << 'EOF'
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
-            docker stop cosmic_news || true
-            docker rm cosmic_news || true
-            docker run --rm -d \
-              --name cosmic_news \
-              -e SPRING_DATASOURCE_URL='jdbc:mysql://${{ secrets.URL_DATABASE }}/cosmic_news_bd?useSSL=true' \
-              -e SPRING_DATASOURCE_USERNAME='adminuser' \
-              -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}' \
-              -p 8080:8080 \
-              ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
-          EOF
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_IP }} \
+          "docker stop cosmic_news:v1 && \
+          docker run --rm -d -e SPRING_DATASOURCE_URL='jdbc:mysql://${{ secrets.URL_DATABASE }}/cosmic_news_bd?useSSL=true' \
+          -e SPRING_DATASOURCE_USERNAME='adminuser' \
+          -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}'"
           
