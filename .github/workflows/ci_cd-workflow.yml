@@ -76,10 +76,12 @@ jobs:
 
       - name: Upload docker image
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_IP }} \
-          "docker stop cosmic_news:v1 && \
-          docker run --rm -d -e SPRING_DATASOURCE_URL='jdbc:mysql://${{ secrets.URL_DATABASE }}/cosmic_news_bd?useSSL=true' \
-          -e SPRING_DATASOURCE_USERNAME='adminuser' \
-          -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}'"
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_IP }} "
+            docker rm -f cosmic_news || true && \
+            docker run --rm -d --name cosmic_news \
+              -e SPRING_DATASOURCE_URL='jdbc:mysql://${{ secrets.URL_DATABASE }}/cosmic_news_bd?useSSL=true' \
+              -e SPRING_DATASOURCE_USERNAME='adminuser' \
+              -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}' \
+              ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1"
           
           
