@@ -85,4 +85,3 @@ jobs:
               -e BPE_OVERRIDE_JAVA_TOOL_OPTIONS='-Xss256K -XX:ReservedCodeCacheSize=32M -XX:MaxMetaspaceSize=60000K -Xmx48M' \
               -e BP_JVM_THREAD_COUNT=50 \
               ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1"
-    
