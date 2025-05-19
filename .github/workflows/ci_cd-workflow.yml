@@ -83,7 +83,7 @@ jobs:
               -e SPRING_DATASOURCE_URL='jdbc:mysql://cosmic-news-db.cutu02gw8sok.us-east-1.rds.amazonaws.com:3306/cosmic_news_bd?useSSL=false&allowPublicKeyRetrieval=true' \
               -e SPRING_DATASOURCE_USERNAME='adminuser' \
               -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}' \
-              -e SPRING_DATASOURCE_AUTO='update' \
+              -e SPRING_DATASOURCE_AUTO='create-drop' \
               -e BPE_OVERRIDE_JAVA_TOOL_OPTIONS='-Xss256K -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=100000K -Xmx128M' \
               ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1"
  
