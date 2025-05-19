@@ -51,7 +51,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Generate Docker image with memory fix
+      - name: Generate Docker image
         run: |
           mvn -f cosmic-news/pom.xml spring-boot:build-image -DskipTests \
             -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
@@ -79,9 +79,10 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_IP }} "
             docker rm -f cosmic_news || true && \
             docker run -d --name cosmic_news \
-              -e SPRING_DATASOURCE_URL='jdbc:mysql://cosmic-news-db.cutu02gw8sok.us-east-1.rds.amazonaws.com:3306/cosmic_news_bd?useSSL=false&allowPublicKeyRetrieval=true' \
+              -e SPRING_DATASOURCE_URL='jdbc:mysql://{{ secrets.URL_DATABASE }}/cosmic_news_bd?useSSL=false&allowPublicKeyRetrieval=true' \
               -e SPRING_DATASOURCE_USERNAME='adminuser' \
               -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}' \
-              -e SPRING_DATASOURCE_AUTO=update \
+              -e BPE_OVERRIDE_JAVA_TOOL_OPTIONS='-Xss256K -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=100000K -Xmx64M' \
+              -e BP_JVM_THREAD_COUNT=50 \
               ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1"
  
