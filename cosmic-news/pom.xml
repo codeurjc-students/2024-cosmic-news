@@ -138,8 +138,7 @@
 				<configuration>
 					<image>
 						<env>
-							<BPE_OVERRIDE_JAVA_TOOL_OPTIONS>-Xss256K -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=100000K -Xmx64M</BPE_OVERRIDE_JAVA_TOOL_OPTIONS>
-							<BP_JVM_THREAD_COUNT>50</BP_JVM_THREAD_COUNT>
+							<BPE_OVERRIDE_JAVA_TOOL_OPTIONS>-Xss256K -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=100000K -Xmx128M</BPE_OVERRIDE_JAVA_TOOL_OPTIONS>
 						</env>
 					</image>
 				</configuration>
