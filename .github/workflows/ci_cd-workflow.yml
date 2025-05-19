@@ -80,7 +80,7 @@ jobs:
             docker rm -f cosmic_news || true && \
             docker run -d --name cosmic_news \
               -p 443:8080 \
-              -e SPRING_DATASOURCE_URL='jdbc:mysql://cosmic-news-db.cutu02gw8sok.us-east-1.rds.amazonaws.com:3306/cosmic_news_bd?useSSL=false&allowPublicKeyRetrieval=true' \
+              -e SPRING_DATASOURCE_URL='jdbc:mysql://{{ secrets.URL_DATABASE }}/cosmic_news_bd?useSSL=false&allowPublicKeyRetrieval=true' \
               -e SPRING_DATASOURCE_USERNAME='adminuser' \
               -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}' \
               -e SPRING_DATASOURCE_AUTO='create-drop' \
