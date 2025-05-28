@@ -37,11 +37,7 @@
                             <i class="bi bi-box-arrow-left"></i><tool-tip>Cerrar sesión</tool-tip>
                         </button>
                     </form>
-                    {{/me}}
-                    {{#iamAdmin}} {{^me}}
-                    <a href="/user/{{mail}}/edit" class="btn" role="button" id="edit">
-                        <i class="bi bi-pencil-fill"></i><tool-tip>Editar usuario</tool-tip>
-                    </a>
+
                     <form role="form" action='/profile/delete?id={{id}}' method="post">
                         <button type="submit" class="btn btn-red">
                             <i class="bi bi-trash-fill"></i><tool-tip>Borrar usuario</tool-tip>
@@ -50,7 +46,7 @@
                         <input type="hidden" name="id" value="{{id}}" />
                         <input type="hidden" name="mail" value="{{mail}}" />
                     </form>
-                    {{/me}} {{/iamAdmin}}
+                    {{/me}}
                     </div>
                 </div>
 
