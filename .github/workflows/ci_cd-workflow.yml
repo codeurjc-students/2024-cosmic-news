@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - fase3
     paths-ignore:
       - README.md
 
@@ -78,6 +77,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_IP }} "
             docker rm -f cosmic_news || true && \
+            docker rmi -f cosmic_news || true && \
             docker run -d --name cosmic_news \
               -p 443:8080 \
               -e SPRING_DATASOURCE_URL='jdbc:mysql://cosmic-news-db.cutu02gw8sok.us-east-1.rds.amazonaws.com:3306/cosmic_news_bd?useSSL=false&allowPublicKeyRetrieval=true' \
