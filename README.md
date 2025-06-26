@@ -109,3 +109,20 @@ Se ejecuta al realizar un commit en la rama main después de un merge. Las tarea
 Los artefactos generados en el proceso de CI/CD se almacenan en los siguientes lugares:
 1. Los resultados de los tests (CI), los logs y reportes, se encuentran en la sección "Actions" en Github.
 2. Las imágenes docker (CD) se almacenan en Docker Hub.
+
+# Fase 3
+
+## Pruebas unitarias
+Se han añadido pruebas unitarias utilizando la librería Mockito para consolidar que un administrador de la aplicación puede realizar correctamente operaciones CRUD sobre las entidades principales: noticias, fotografías, vídeos, eventos y cuestionarios. De esta forma, se refuerzan las pruebas de sistema ya existentes, añadiendo pruebas que verifican tanto crear como eliminar las entidades principales.
+
+## Despliegue en Google Cloud
+1. Iniciar la instancia de la máquina virtual correspondiente.
+2. Acceder a la máquina virtual a través de SSH.
+3. Repetir los pasos del apartado "Construcción de la imagen docker" (solo serán necesarios todos los pasos la primera vez).
+
+## Despliegue en Amazon Web Services (AWS)
+1. Iniciar la instancia EC2 y la base de datos Amazon RDS.
+2. Conectarse a la instancia EC2 a través de SSH usando la clave que otorga AWS al crear dicha instancia (archivo .pem).
+3. Instalar docker en la instancia EC2.
+
+Con esto hecho, cada vez que reciba un commit la rama main se actualizará la imagen docker de la aplicación y será accesible en el DNS público de la instancia EC2.
