@@ -52,8 +52,7 @@ jobs:
 
       - name: Generate Docker image
         run: |
-          mvn -f cosmic-news/pom.xml spring-boot:build-image -DskipTests \
-            -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1
+          docker build -f docker/Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/cosmic_news:v1 .
 
       - name: Login to DockerHub
         run: |
@@ -79,7 +78,7 @@ jobs:
             docker rm -f cosmic_news || true && \
             docker rmi -f pedrocristino2020/cosmic_news:v1 || true && \
             docker run -d --name cosmic_news \
-              -p 443:8080 \
+              -p 443:8443 \
               -e SPRING_DATASOURCE_URL='jdbc:mysql://cosmic-news-db.cutu02gw8sok.us-east-1.rds.amazonaws.com:3306/cosmic_news_bd?useSSL=false&allowPublicKeyRetrieval=true' \
               -e SPRING_DATASOURCE_USERNAME='adminuser' \
               -e SPRING_DATASOURCE_PASSWORD='${{ secrets.DB_PASSWORD }}' \
