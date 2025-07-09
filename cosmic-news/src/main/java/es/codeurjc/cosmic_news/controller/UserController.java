@@ -100,15 +100,17 @@ public class UserController {
                     user.setPhoto(BlobProxy.generateProxy(photoField.getInputStream(), photoField.getSize()));
                     user.setImage(true);
                 }
-
             User createdUser = userService.saveUser(user);
             if (createdUser== null) {
                 model.addAttribute("title", "Error");
-                model.addAttribute("message", "Error al crear el usuario");
+                model.addAttribute("message", "Error al crear el usuario.");
                 model.addAttribute("back", "javascript:history.back()");
                 return "message";
             } else {
-                return "redirect:/";
+                model.addAttribute("title", "Completado");
+                model.addAttribute("message", "Usuario registrado correctamente.");
+                model.addAttribute("back", "/");
+                return "message";
             }
         }
 	}

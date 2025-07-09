@@ -697,13 +697,13 @@ public class DataBaseInitializer {
 
     private void initEvents(){
         Event event1 = new Event(
-            LocalDate.of(2024,8,19),
+            LocalDate.of(2025,7,7),
             "bi bi-moon-fill",
             "¡Luna llena! La Luna está en el lado opuesto de la Tierra por lo que el Sol la ilumina por completo. La Luna Llena es a las 18:27 UTC."
         );
 
         Event event2 = new Event(
-            LocalDate.of(2024,8,28),
+            LocalDate.of(2025,7,19),
             "bi bi-diagram-3",
             "¡Conjunción de la Luna y Marte! La Luna pasa a unos 5,1º al norte de Marte a las 00:23 UTC. La Luna tiene una magnitud de -11,4 y Marte una magnitud de 0,8. En este momento la fase lunar es del 32,9%."
         );

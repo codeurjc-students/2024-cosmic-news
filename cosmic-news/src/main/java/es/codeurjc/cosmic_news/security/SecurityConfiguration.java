@@ -167,7 +167,9 @@ public class SecurityConfiguration {
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.failureUrl("/login/error")
-					.defaultSuccessUrl("/login")
+					.successHandler((request, response, authentication) -> {
+						response.sendRedirect("/login");
+					})
 					.permitAll()
 			)
 			.logout(logout -> logout

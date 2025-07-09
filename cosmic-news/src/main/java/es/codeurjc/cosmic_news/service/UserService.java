@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public User saveUser(User user){
-        if (userRepository.findByMail(user.getName()).isPresent()){
+        if (userRepository.findByMail(user.getMail()).isPresent()){
             return null;
         } else{
             user.setPass(passwordEncoder.encode(user.getPass()));
