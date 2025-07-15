@@ -71,7 +71,7 @@ export class UserFormComponent{
                     if (this.edit) {
                         this.uploadUserImage(user);
                     } else {
-                        this.router.navigate(['/']);
+                        this.messageService.showMessage("Usuario registrado correctamente.", "/");
                     }
                 },
                 _error => {

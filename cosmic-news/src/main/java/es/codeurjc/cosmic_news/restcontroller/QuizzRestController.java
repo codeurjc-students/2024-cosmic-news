@@ -343,6 +343,9 @@ public class QuizzRestController {
 			Quizz quizz = quizzService.findQuizzById(id);
 			if (quizz != null) {
 				submitQuizz(quizz, quizzDTO);
+				if (quizzDTO.getScore() == quizz.getQuestions().size()) {
+                	quizzService.giveBadge(quizz, principal.getName());
+            	}
 				return new ResponseEntity<>(quizzDTO, HttpStatus.OK);
 			}else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -395,6 +398,7 @@ public class QuizzRestController {
 			if (questionDTO.getSelected().equals(questions.get(cont).getAnswer())) {
 				score++;
 			}
+			cont++;
 		}
 		quizzDTO.setScore(score);
 	}

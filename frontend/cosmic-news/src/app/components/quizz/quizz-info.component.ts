@@ -59,8 +59,16 @@ export class QuizzInfoComponent {
         }
       }
       this.quizz.score=this.score
-      const navigationExtras: NavigationExtras = {state: {quizz: this.quizz }};
-      this.router.navigate(['result'], {relativeTo: this.activatedRoute, ...navigationExtras });
+        this.service.submitQuizz(this.quizz.id, this.quizz).subscribe(
+        response => {
+          const navigationExtras: NavigationExtras = { state: { quizz: this.quizz } };
+          this.router.navigate(['result'], { relativeTo: this.activatedRoute, ...navigationExtras });
+        },
+        error => {
+          console.error("Error al enviar el quizz:", error);
+          alert("No se pudo enviar el quizz.");
+        }
+      );
     }
   }
 

@@ -57,6 +57,11 @@ export class QuizzService {
         );
     }
 
+    submitQuizz(id: number | undefined, quizz: Quizz) {
+    return this.httpClient.post('/api/quizzes/' + id + '/submit', quizz)
+    .pipe(catchError(error => this.handleError(error)));
+    }
+
     private handleError(error: any) {
         console.error(error);
         return throwError("Server error (" + error.status + "):" + error.text())
