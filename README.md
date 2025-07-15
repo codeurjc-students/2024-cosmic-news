@@ -126,3 +126,6 @@ Se han añadido pruebas unitarias utilizando la librería Mockito para consolida
 3. Instalar docker en la instancia EC2.
 
 Con esto hecho, cada vez que reciba un commit la rama main se actualizará la imagen docker de la aplicación y será accesible en el DNS público de la instancia EC2.
+
+## Link al video de youtube
+https://www.youtube.com/watch?v=07N7VUCn42o&
